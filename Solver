@@ -1,0 +1,17 @@
+import itertools;
+def solver(problem):
+    problem = problem.replace("x", "*").replace("=", "==")
+    alphabet = sorted(set(filter(str.isalpha, problem)))
+    for numbers in itertools.permutations("0123456789", len(alphabet)):
+        exp = problem
+        for a, n in zip(alphabet, numbers):
+            exp = exp.replace(a, n)
+        try:
+            if eval(exp):
+                return " ".join(f"{a}: {n}" for a, n in zip(alphabet, numbers))
+        except:
+            pass
+    return "答えが見つかりませんでした"
+
+
+print(solver("ABC + BAC = CACA"))
